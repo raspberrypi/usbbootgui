@@ -1,0 +1,16 @@
+usbboot/msd/bootcode.bin /usr/share/rpiboot/msd
+usbboot/msd/start.elf /usr/share/rpiboot/msd
+gpioexpander/output/fixup.dat /usr/share/rpiboot/gpioexpand
+gpioexpander/output/config.txt /usr/share/rpiboot/gpioexpand
+gpioexpander/output/cmdline.txt /usr/share/rpiboot/gpioexpand
+gpioexpander/output/gpioexpand.img /usr/share/rpiboot/gpioexpand
+gpioexpander/output/bootcode.bin /usr/share/rpiboot/gpioexpand
+gpioexpander/output/bcm2708-rpi-0-w.dtb /usr/share/rpiboot/gpioexpand
+gpioexpander/output/bcm2708-rpi-b-plus.dtb /usr/share/rpiboot/gpioexpand
+gpioexpander/output/start.elf /usr/share/rpiboot/gpioexpand
+gpioexpander/output/kernel.img /usr/share/rpiboot/gpioexpand
+gpioexpander/output/overlays/dwc2.dtbo /usr/share/rpiboot/gpioexpand/overlays
+gpioexpander/output/LICENSE /usr/share/rpiboot/gpioexpand
+
+debian/usbbootgui.service /lib/systemd/system
+debian/99-usbbootgui.rules /lib/udev/rules.d

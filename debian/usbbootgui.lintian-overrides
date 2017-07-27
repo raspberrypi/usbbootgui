@@ -1,0 +1,11 @@
+usbbootgui: arch-dependent-file-in-usr-share usr/share/rpiboot/gpioexpand/start.elf
+usbbootgui: binary-from-other-architecture usr/share/rpiboot/gpioexpand/start.elf
+usbbootgui: embedded-library usr/share/rpiboot/gpioexpand/start.elf: libpng
+usbbootgui: statically-linked-binary usr/share/rpiboot/gpioexpand/start.elf
+usbbootgui: arch-dependent-file-in-usr-share usr/share/rpiboot/msd/start.elf
+usbbootgui: binary-from-other-architecture usr/share/rpiboot/msd/start.elf
+usbbootgui: unstripped-binary-or-object usr/share/rpiboot/msd/start.elf
+usbbootgui: statically-linked-binary usr/share/rpiboot/msd/start.elf
+usbbootgui: extra-license-file usr/share/rpiboot/gpioexpand/LICENSE
+usbbootgui: init.d-script-not-marked-as-conffile etc/init.d/usbbootgui
+usbbootgui: init.d-script-not-included-in-package etc/init.d/usbbootgui

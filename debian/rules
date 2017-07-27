@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+# See debhelper(7) (uncomment to enable)
+# output every command that modifies files on the build system.
+#export DH_VERBOSE = 1
+
+%:
+	dh $@ --with autoreconf
+
+.PHONY: override_dh_strip
+
+# Prevent debuild from trying to strip start.elf
+override_dh_strip:
+	dh_strip --exclude=.elf

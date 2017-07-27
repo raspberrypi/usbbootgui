@@ -1,0 +1,3 @@
+dtoverlay=dwc2,dr_mode=peripheral
+kernel=kernel.img
+initramfs gpioexpand.img
