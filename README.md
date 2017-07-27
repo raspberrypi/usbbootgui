@@ -1,6 +1,6 @@
 # usbbootgui
 
-usbbootgui is an application that allows the user to use a Pi Zero as USB accessory 
+usbbootgui is a GUI application that allows the user to use a Pi Zero or Compute Module as USB accessory.
 
 ## Folders
 
@@ -14,13 +14,20 @@ gpioexpander - pre-built binary files from the gpioexpander project to let a Pi 
 
 ## How to rebuild
 
-### Rebuilding gpio expander payload
+### Rebuilding gpio expander payload (optional)
 
-Note: this step is *optional*, you can also skip it and use the pre-build binaries checked into git.
+Note: this step is *optional*, you can also skip it and use the pre-built binaries checked into git.
 
 The gpioexpand code should be cross-compiled on a x86 Linux computer using buildroot.
-Install the dependencies listed at: https://buildroot.org/downloads/manual/manual.html#requirement-mandatory
-And run the following commands to download the source code from the gpioexpander github repository, and build it:
+First the buildroot build dependencies need to be installed.
+If the Linux distribution used is Debian or Ubuntu this can be done with the command:
+
+```
+sudo apt-get update
+sudo apt-get install git-core build-essential rsync libncurses-dev unzip python bc
+```
+
+Then run the following commands to remove the pre-built binaries, download the source code from the gpioexpander github repository, and build it:
 
 ```
 rm -rf gpioexpander
@@ -37,7 +44,6 @@ rm -rf buildroot-2017.02
 
 (Otherwise `debuild` will also include all the build directories in the source code archive at the next step.)
 
-
 ### Rebuilding the main usbbootgui application and .deb package
 
 The usbbootgui application can be compiled on the target system.
@@ -51,5 +57,3 @@ To build, go to the main directory, and type:
 `debuild`
 
 After build, the .deb Debian package will be located in the parent directory
-
- 
