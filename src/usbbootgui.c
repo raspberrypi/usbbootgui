@@ -498,8 +498,6 @@ int main(int argc, char *argv[])
 	builder = gtk_builder_new();
 	gtk_builder_add_from_file (builder, PACKAGE_DATA_DIR "/usbbootgui.ui", NULL);
 
-	gchar *selectedImage = getAlwaysUseImage();
-	
 	if ( !hasAlwaysUseImage() )
 		showDialog();
 	if ( hasAlwaysUseImage() )
