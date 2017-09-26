@@ -100,7 +100,6 @@ AC_CONFIG_FILES([
 	src/Makefile
 	data/Makefile
 	po/Makefile.in
-	usbboot/Makefile
 ],[],
 [API_VERSION='$API_VERSION'])
 AC_OUTPUT

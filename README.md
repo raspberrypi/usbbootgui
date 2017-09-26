@@ -8,7 +8,6 @@ usbbootgui is a GUI application that allows the user to use a Pi Zero or Compute
 src          - GUI C source code
 data         - GUI data files (e.g. .ui file and icons)
 debian       - Debian packaging files
-usbboot      - rpiboot command-line application source code
 gpioexpander - pre-built binary files from the gpioexpander project to let a Pi Zero act as GPIO expander
 ```
 
@@ -50,7 +49,7 @@ The usbbootgui application can be compiled on the target system.
 
 Install build dependencies for Raspbian:
 
-`sudo apt-get install devscripts debhelper dh-autoreconf libglib2.0-dev libgtk2.0-dev intltool autopoint libusb-1.0-0-dev`
+`sudo apt-get install devscripts debhelper dh-autoreconf libglib2.0-dev libgtk2.0-dev intltool autopoint`
 
 To build, go to the main directory, and type:
 

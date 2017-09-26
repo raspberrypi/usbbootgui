@@ -1,5 +1,3 @@
-usbboot/msd/bootcode.bin /usr/share/rpiboot/msd
-usbboot/msd/start.elf /usr/share/rpiboot/msd
 gpioexpander/output/fixup.dat /usr/share/rpiboot/gpioexpand
 gpioexpander/output/config.txt /usr/share/rpiboot/gpioexpand
 gpioexpander/output/cmdline.txt /usr/share/rpiboot/gpioexpand

@@ -1,4 +1,4 @@
-SUBDIRS = data src po usbboot
+SUBDIRS = data src po
 
 EXTRA_DIST = AUTHORS
 

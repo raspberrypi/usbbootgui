@@ -2,16 +2,9 @@ Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: usbbootgui
 Source: 
 
-Files: usbboot/* *
-Copyright: 2017 Raspberry Pi
-License: Apache
-
 Files: gpioexpander/*
 Copyright: Incorporates packages by various authors
 License: Mixed
-
-License: Apache
- See: /usr/share/common-licenses/Apache-2.0
 
 License: Mixed
  See: /usr/share/rpiboot/gpioexpand/LICENSE
