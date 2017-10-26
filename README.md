@@ -49,7 +49,7 @@ The usbbootgui application can be compiled on the target system.
 
 Install build dependencies for Raspbian:
 
-`sudo apt-get install devscripts debhelper dh-autoreconf libglib2.0-dev libgtk2.0-dev intltool autopoint`
+`sudo apt-get install devscripts debhelper dh-autoreconf libglib2.0-dev libgtk2.0-dev intltool autopoint libusb-1.0-0-dev`
 
 To build, go to the main directory, and type:
 
