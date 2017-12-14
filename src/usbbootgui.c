@@ -481,7 +481,7 @@ static void addImage(const gchar *name, const gchar *folder)
 	{
 		gchar *desc;
 		g_file_get_contents (descpath, &desc, NULL, NULL);
-		description = g_strdup_printf (format, desc, folder);
+		description = g_strdup_printf (format, g_strstrip (desc), folder);
 		g_free (desc);
 	} else {
 		if (g_strcmp0 (name, "gpioexpand") == 0)
