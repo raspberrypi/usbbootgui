@@ -76,7 +76,7 @@ static gchar *promptForFolder()
 
 	gtk_widget_destroy (dialog);
 	
-	bootcodepath = g_strdup_printf ("%s/bootcode.bin", folder);
+	bootcodepath = g_build_filename (folder, "bootcode.bin", NULL);
 
 	if (!g_file_test (bootcodepath, G_FILE_TEST_EXISTS))
 	{
@@ -306,7 +306,7 @@ static void showDialog()
 				if (imagepath)
 				{
 					/* Sanity check: check that image folder is present, and contains at least bootcode.bin */
-					bootcodepath = g_strdup_printf ("%s/bootcode.bin", imagepath);
+					bootcodepath = g_build_filename (imagepath, "bootcode.bin", NULL);
 
 					if (!g_file_test (imagepath, G_FILE_TEST_EXISTS))
 					{
@@ -476,7 +476,7 @@ static void addImage(const gchar *name, const gchar *folder)
 
 	gchar format[] = "%s<span size=\"smaller\">\n\n%s</span>";
 
-	descpath = g_strdup_printf ("%s/%s", folder, "description.txt");
+	descpath = g_build_filename (folder, "description.txt", NULL);
 	if (g_file_test (descpath, G_FILE_TEST_EXISTS))
 	{
 		gchar *desc;
@@ -493,7 +493,7 @@ static void addImage(const gchar *name, const gchar *folder)
 	}
 	g_free (descpath);
 
-	iconpath = g_strdup_printf ("%s/%s", folder, "icon.png");
+	iconpath = g_build_filename (folder, "icon.png", NULL);
 	if (g_file_test (iconpath, G_FILE_TEST_EXISTS)) {
 		icon = gdk_pixbuf_new_from_file(iconpath, NULL);
 	} else {
@@ -521,15 +521,15 @@ static void scanDirectory(const gchar *path)
 	const gchar *name;
 	GDir *rpibootdir;
 
-	rpibootpath = g_strdup_printf ("%s/rpiboot", path);
+	rpibootpath = g_build_filename (path, "rpiboot", NULL);
 	rpibootdir = g_dir_open(rpibootpath, 0, NULL);
 	if (!rpibootdir)
 		return;
 
 	while(name = g_dir_read_name(rpibootdir)) {
-		imagepath = g_strdup_printf ("%s/%s", rpibootpath, name);
+		imagepath = g_build_filename (rpibootpath, name, NULL);
 		if (g_file_test (imagepath, G_FILE_TEST_IS_DIR)) {
-			bootcodepath = g_strdup_printf ("%s/bootcode.bin", imagepath);
+			bootcodepath = g_build_filename (imagepath, "bootcode.bin", NULL);
 			if (g_file_test (bootcodepath, G_FILE_TEST_EXISTS)) {
 				addImage(name, imagepath);
 			}
