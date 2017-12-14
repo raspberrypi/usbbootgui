@@ -521,8 +521,6 @@ static void scanDirectory(const gchar *path)
 	const gchar *name;
 	GDir *rpibootdir;
 
-	printf("scanning %s\n", path);
-
 	rpibootpath = g_strdup_printf ("%s/rpiboot", path);
 	rpibootdir = g_dir_open(rpibootpath, 0, NULL);
 	if (!rpibootdir)
