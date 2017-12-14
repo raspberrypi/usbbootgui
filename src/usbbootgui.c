@@ -29,9 +29,6 @@
 #define MODEL_IDX_NAME   1 /* Friendly name */
 #define MODEL_IDX_IMAGE  2 /* Image folder name */
 
-/* Prefix to image folders */
-#define IMAGE_PREFIX  "/usr/share/rpiboot"
-
 #define SETTINGS_FILE "/etc/usbbootgui.conf"
 
 /* USB device ids of interest */
@@ -303,7 +300,7 @@ static void showDialog()
 				}
 				else
 				{
-					imagepath = g_strdup_printf ("%s/%s", IMAGE_PREFIX, image);
+					imagepath = g_strdup(image);
 				}
 
 				if (imagepath)
@@ -441,14 +438,7 @@ static gboolean pollForPi()
 			showDialog();
 		else
 		{
-			if (image[0] == '/')
-				success = usbboot (image);
-			else
-			{
-				imagepath = g_strdup_printf ("%s/%s", IMAGE_PREFIX, image);
-				success = usbboot (imagepath);
-				g_free (imagepath);
-			}
+			success = usbboot (image);
 			
 			if (!success)
 			{
@@ -477,8 +467,119 @@ static void showTrayIcon()
 	}
 }
 
+static void addImage(const gchar *name, const gchar *folder)
+{
+	GtkListStore *store = GTK_LIST_STORE (gtk_builder_get_object (builder, "liststore"));
+	GtkTreeIter iter;
+	gchar *description, *descpath, *iconpath;
+	GdkPixbuf *icon;
+
+	gchar format[] = "%s<span size=\"smaller\">\n\n%s</span>";
+
+	descpath = g_strdup_printf ("%s/%s", folder, "description.txt");
+	if (g_file_test (descpath, G_FILE_TEST_EXISTS))
+	{
+		gchar *desc;
+		g_file_get_contents (descpath, &desc, NULL, NULL);
+		description = g_strdup_printf (format, desc, folder);
+		g_free (desc);
+	} else {
+		if (g_strcmp0 (name, "gpioexpand") == 0)
+			description = g_strdup_printf (format, _("GPIO expansion board"), folder);
+		else if (g_strcmp0 (name, "msd") == 0)
+			description = g_strdup_printf (format, _("eMMC / SD card reader"), folder);
+		else
+			description = g_strdup_printf (format, name, folder);
+	}
+	g_free (descpath);
+
+	iconpath = g_strdup_printf ("%s/%s", folder, "icon.png");
+	if (g_file_test (iconpath, G_FILE_TEST_EXISTS)) {
+		icon = gdk_pixbuf_new_from_file(iconpath, NULL);
+	} else {
+		if (g_strcmp0 (name, "gpioexpand") == 0)
+			icon = gdk_pixbuf_new_from_file(PACKAGE_DATA_DIR "/gpio.png", NULL);
+		else if (g_strcmp0 (name, "msd") == 0)
+			icon = gdk_pixbuf_new_from_file(PACKAGE_DATA_DIR "/sdcard.png", NULL);
+		else
+			icon = gdk_pixbuf_new_from_file(PACKAGE_DATA_DIR "/document-open.png", NULL); // TODO: make an "unknown" icon
+	}
+	g_free (iconpath);
+
+	gtk_list_store_append(store, &iter);
+
+	gtk_list_store_set(store, &iter,
+						MODEL_IDX_ICON, icon,
+						MODEL_IDX_NAME, description,
+						MODEL_IDX_IMAGE, g_strdup (folder),
+						-1);
+}
+
+static void scanDirectory(const gchar *path)
+{
+	gchar *rpibootpath, *imagepath, *bootcodepath;
+	const gchar *name;
+	GDir *rpibootdir;
+
+	printf("scanning %s\n", path);
+
+	rpibootpath = g_strdup_printf ("%s/rpiboot", path);
+	rpibootdir = g_dir_open(rpibootpath, 0, NULL);
+	if (!rpibootdir)
+		return;
+
+	while(name = g_dir_read_name(rpibootdir)) {
+		imagepath = g_strdup_printf ("%s/%s", rpibootpath, name);
+		if (g_file_test (imagepath, G_FILE_TEST_IS_DIR)) {
+			bootcodepath = g_strdup_printf ("%s/bootcode.bin", imagepath);
+			if (g_file_test (bootcodepath, G_FILE_TEST_EXISTS)) {
+				addImage(name, imagepath);
+			}
+			g_free (bootcodepath);
+		}
+		g_free(imagepath);
+	}
+	g_dir_close (rpibootdir);
+	g_free (rpibootpath);
+}
+
+gboolean stringInList(GList *list, const gchar *string)
+{
+	GList *l;
+	for (l=list; l!=NULL; l = l->next)
+		if (g_strcmp0 (string, l->data) == 0)
+			return TRUE;
+	return FALSE;
+}
+
+static void populateImageList()
+{
+	const gchar *path;
+	const gchar *var;
+	const gchar * const *xdg_data_dirs;
+	gint i;
+
+	GList *scanned_dirs = NULL;
+	GList *l;
+
+	xdg_data_dirs = g_get_system_data_dirs ();
+	for (i = 0; xdg_data_dirs[i]; i++) {
+		if (stringInList(scanned_dirs, xdg_data_dirs[i]))
+			continue;
+		scanned_dirs = g_list_prepend(scanned_dirs, (gpointer)xdg_data_dirs[i]);
+		scanDirectory(xdg_data_dirs[i]);
+	}
+	path = g_get_user_data_dir ();
+	if (stringInList(scanned_dirs, path))
+		return;
+	scanDirectory(path);
+}
+
 int main(int argc, char *argv[])
 {
+	GtkListStore *store;
+	GtkTreeIter iter;
+
 #ifdef ENABLE_NLS
 	bindtextdomain (GETTEXT_PACKAGE, LOCALE_DIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -497,6 +598,13 @@ int main(int argc, char *argv[])
 	gtk_window_set_default_icon_from_file (PACKAGE_DATA_DIR "/raspberry-pi.png", NULL);	
 	builder = gtk_builder_new();
 	gtk_builder_add_from_file (builder, PACKAGE_DATA_DIR "/usbbootgui.ui", NULL);
+
+	populateImageList();
+
+	/* Move "Custom application" to the end of the list. */
+	store = GTK_LIST_STORE (gtk_builder_get_object (builder, "liststore"));
+	gtk_tree_model_get_iter_first(GTK_TREE_MODEL (store), &iter);
+	gtk_list_store_move_before(store, &iter, NULL);
 
 	if ( !hasAlwaysUseImage() )
 		showDialog();

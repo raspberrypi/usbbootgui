@@ -18,16 +18,6 @@
     </columns>
     <data>
       <row>
-        <col id="0">gpio.png</col>
-        <col id="1" translatable="yes">GPIO expansion board</col>
-        <col id="2">gpioexpand</col>
-      </row>
-      <row>
-        <col id="0">sdcard.png</col>
-        <col id="1" translatable="yes">eMMC / SD card reader</col>
-        <col id="2">msd</col>
-      </row>
-      <row>
         <col id="0">document-open.png</col>
         <col id="1" translatable="yes">Custom application</col>
         <col id="2" translatable="yes"/>
@@ -78,7 +68,7 @@
             </child>
           </object>
           <packing>
-            <property name="expand">True</property>
+            <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">0</property>
           </packing>
@@ -142,43 +132,50 @@ Type: </property>
               </packing>
             </child>
             <child>
-              <object class="GtkTreeView" id="treeview">
-                <property name="height_request">200</property>
+              <object class="GtkScrolledWindow" id="scrolledwindow1">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="model">liststore</property>
-                <property name="headers_visible">False</property>
-                <property name="search_column">7</property>
+                <property name="hscrollbar_policy">automatic</property>
+                <property name="vscrollbar_policy">automatic</property>
                 <child>
-                  <object class="GtkTreeViewColumn" id="treeviewcolumn1">
-                    <property name="fixed_width">64</property>
-                    <property name="min_width">64</property>
-                    <property name="title" translatable="yes">icon</property>
+                  <object class="GtkTreeView" id="treeview">
+                    <property name="height_request">200</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="model">liststore</property>
+                    <property name="headers_visible">False</property>
+                    <property name="search_column">7</property>
                     <child>
-                      <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf1"/>
-                      <attributes>
-                        <attribute name="pixbuf">0</attribute>
-                      </attributes>
+                      <object class="GtkTreeViewColumn" id="treeviewcolumn1">
+                        <property name="fixed_width">64</property>
+                        <property name="min_width">64</property>
+                        <property name="title" translatable="yes">icon</property>
+                        <child>
+                          <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf1"/>
+                          <attributes>
+                            <attribute name="pixbuf">0</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="treeviewcolumn2">
+                        <property name="title" translatable="yes">description</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="cellrenderertext1"/>
+                          <attributes>
+                            <attribute name="markup">1</attribute>
+                          </attributes>
+                        </child>
+                      </object>
                     </child>
                   </object>
-                </child>
-                <child>
-                  <object class="GtkTreeViewColumn" id="treeviewcolumn2">
-                    <property name="title" translatable="yes">description</property>
-                    <child>
-                      <object class="GtkCellRendererText" id="cellrenderertext1"/>
-                      <attributes>
-                        <attribute name="text">1</attribute>
-                      </attributes>
-                    </child>
-                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
                 </child>
               </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkCheckButton" id="alwayscheck">
@@ -189,7 +186,7 @@ Type: </property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
-                <property name="expand">True</property>
+                <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">3</property>
               </packing>
