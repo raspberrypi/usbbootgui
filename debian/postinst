@@ -20,7 +20,7 @@ set -e
 
 case "$1" in
     configure)
-        if [ `uname -m` = "i686" ]; then
+        if [ `uname -m` = "i686" ] || [ `uname -m` = "x86_64" ]; then
             echo "export PIGPIO_ADDR=fe80::1%usb0" > /etc/profile.d/pigpio_default_address.sh
         fi
     ;;
