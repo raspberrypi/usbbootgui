@@ -1,3 +1,11 @@
+usbbootgui (0.2) stretch; urgency=medium
+
+  * Add delay between disconnecting and re-connecting USB
+  * Fix having more than one unit at the same time
+  * Fix setting default PIGPIO_ADDR
+
+ -- Serge Schneider <serge@raspberrypi.org>  Thu, 05 Jul 2018 17:30:10 +0100
+
 usbbootgui (0.1) jessie; urgency=medium
 
   * Initial release
