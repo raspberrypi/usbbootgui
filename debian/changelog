@@ -1,3 +1,11 @@
+usbbootgui (0.3) stretch; urgency=medium
+
+  * Set GPIOZERO_PIN_FACTORY=pigpio
+  * Purge /etc/profile.d/pigpio_default_address.sh
+  * Bump standards to 3.9.8
+
+ -- Serge Schneider <serge@raspberrypi.org>  Tue, 04 Sep 2018 15:08:03 +0100
+
 usbbootgui (0.2) stretch; urgency=medium
 
   * Add delay between disconnecting and re-connecting USB

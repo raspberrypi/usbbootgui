@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Floris Bos <bos@je-eigen-domein.nl>
 Build-Depends: debhelper (>= 9), dh-autoreconf, libglib2.0-dev, libgtk2.0-dev,
  intltool, autopoint, libusb-1.0-0-dev
-Standards-Version: 3.9.7
+Standards-Version: 3.9.8
 
 Package: usbbootgui
 Architecture: any
