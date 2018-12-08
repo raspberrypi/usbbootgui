@@ -22,8 +22,8 @@ First the buildroot build dependencies need to be installed.
 If the Linux distribution used is Debian or Ubuntu this can be done with the command:
 
 ```
-sudo apt-get update
-sudo apt-get install git-core build-essential rsync libncurses-dev unzip python bc
+sudo apt update
+sudo apt install git-core build-essential rsync libncurses-dev unzip python bc
 ```
 
 Then run the following commands to remove the pre-built binaries, download the source code from the gpioexpander github repository, and build it:
@@ -49,7 +49,7 @@ The usbbootgui application can be compiled on the target system.
 
 Install build dependencies for Raspbian:
 
-`sudo apt-get install devscripts debhelper dh-autoreconf libglib2.0-dev libgtk2.0-dev intltool autopoint libusb-1.0-0-dev`
+`sudo apt install devscripts debhelper dh-autoreconf libglib2.0-dev libgtk2.0-dev intltool autopoint libusb-1.0-0-dev`
 
 To build, go to the main directory, and type:
 
