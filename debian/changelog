@@ -1,3 +1,12 @@
+usbbootgui (0.4) buster; urgency=medium
+
+  * Workaround for https://github.com/systemd/systemd/issues/7587
+    - v240 of SystemD does not see the 'remove' event, which makes usbbootgui
+      run only once. Adding the systemd tag to the remove event works around
+      the problem.
+
+ -- Serge Schneider <serge@raspberrypi.org>  Tue, 12 Feb 2019 16:40:47 +0000
+
 usbbootgui (0.3) stretch; urgency=medium
 
   * Set GPIOZERO_PIN_FACTORY=pigpio
