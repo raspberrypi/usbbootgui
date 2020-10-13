@@ -1,3 +1,9 @@
+usbbootgui (0.5) buster; urgency=medium
+
+  * Add CM4 support
+
+ -- Serge Schneider <serge@raspberrypi.com>  Tue, 13 Oct 2020 16:06:54 +0100
+
 usbbootgui (0.4) buster; urgency=medium
 
   * Workaround for https://github.com/systemd/systemd/issues/7587

@@ -1,2 +1,2 @@
-ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="0a5c", ATTR{idProduct}=="276[34]", TAG+="systemd", ENV{SYSTEMD_WANTS}="usbbootgui.service" 
-ACTION=="remove", SUBSYSTEM=="usb", ENV{PRODUCT}=="a5c/276[34]*", TAG+="systemd"
+ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="0a5c", ATTR{idProduct}=="27[16][134]", TAG+="systemd", ENV{SYSTEMD_WANTS}="usbbootgui.service"
+ACTION=="remove", SUBSYSTEM=="usb", ENV{PRODUCT}=="a5c/27[16][134]*", TAG+="systemd"
